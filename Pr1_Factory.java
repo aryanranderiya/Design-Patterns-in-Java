@@ -1,12 +1,15 @@
 import java.util.*;
 
 /*
-! The Factory Design Pattern is a creational pattern that provides an interface for creating instances of a class, allowing subclasses to alter the type of objects that will be instantiated. It promotes code flexibility and separation of concerns by delegating the responsibility of object creation to dedicated factory classes.
+! The Factory Design Pattern is a creational pattern that provides an interface
+for creating instances of a class, allowing subclasses to alter the type of objects
+that will be instantiated. It promotes code flexibility and separation of
+concerns by delegating the responsibility of object creation to dedicated factory classes.
 */
 
 interface Car {
     // Create an interface implemented by classes to print all brand details.
-    void carBrandDetails();
+    public void carBrandDetails();
 }
 
 class Porsche implements Car {
@@ -33,19 +36,18 @@ class Lamborghini implements Car {
     // Sub class that implements "Car" interface and "carBrandDetails" method
     public void carBrandDetails() {
         // Print Details of the Car Brand.
-        System.out.println("This is Porsche.");
+        System.out.println("This is Lamborghini.");
         System.out.println("Founder: Ferruccio Lamborghini");
         System.out.println("Founded: May 1963, Sant'Agata Bolognese, Italy");
     }
 }
 
 // Car Factory is used to create the car based on the valid user input.
-
 class CarFactory {
-    // Factory class that returns new instance of respective classes.
-    // Type of the Car object is based on the user input string
-    // (irrelevant of the case [equalsIgnoreCase()]).
-
+    /*
+     * Factory class that returns new instance of respective classes.
+     * Type of the Car object is based on the user input string.
+     */
     public Car createCar(String carBrand) {
         // If no user input is found. Null return type is handled in main method..
         if (carBrand == null || carBrand.isEmpty()) {
@@ -98,6 +100,7 @@ public class Pr1_Factory {
             object.carBrandDetails();
         }
 
+        // Close the Scanner input stream to prevent data leaks.
         sc.close();
     }
 }
