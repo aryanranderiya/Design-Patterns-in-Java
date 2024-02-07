@@ -8,3 +8,5 @@ In software engineering, a design pattern is a general repeatable solution to a 
 ### Practical 1 : [Factory Design Pattern](https://github.com/aryanranderiya/Design-Patterns-in-Java/tree/main/Pr1%20Factory)
 ### Practical 2 : [Builder Design Pattern](https://github.com/aryanranderiya/Design-Patterns-in-Java/tree/main/Pr2%20Builder)
 ### Practical 3 : [Prototype Design Pattern](https://github.com/aryanranderiya/Design-Patterns-in-Java/tree/main/Pr3%20Prototype)
+### Practical 4 : [Abstract Factory Design Pattern](https://github.com/aryanranderiya/Design-Patterns-in-Java/tree/main/Pr4%20Abstract%20Factory)
+### Practical 5 : [Singleton Design Pattern](https://github.com/aryanranderiya/Design-Patterns-in-Java/tree/main/Pr5%20Singleton)
