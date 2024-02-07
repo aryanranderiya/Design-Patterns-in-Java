@@ -1,12 +1,14 @@
-
+// Car class representing a car with specific details
 class Car {
     private String model, color, brand;
     private int year;
 
-    // Early, instance will be created at load time
+    // Singleton instance of Car, initialized to null
     private static Car carObject = null;
 
+    // Private constructor to prevent direct instantiation
     private Car() {
+        // Setting default values for brand, model, year, and color
         this.brand = "Porsche";
         this.model = "911";
         this.year = 2024;
@@ -14,10 +16,13 @@ class Car {
         System.out.println("Constructor Called");
     }
 
+    // Getter method to retrieve the singleton instance of Car
     public static Car getInstance() {
         return carObject;
     }
 
+    // Setter method to create a new Car instance using double-checking for thread
+    // safety
     public static void setInstance() {
         if (carObject == null) {
             synchronized (Car.class) {
@@ -30,6 +35,7 @@ class Car {
             System.out.println("Car Instance Already Exists!! You can access it using 'getInstance()' method.\n");
     }
 
+    // Method to print the details of the car
     public void printDetails() {
         System.out.println("Car{" +
                 "brand='" + brand + '\'' +
@@ -38,13 +44,14 @@ class Car {
                 ", color='" + color + '\'' +
                 "}");
     }
-
 }
 
+// Main class to demonstrate the double-checking singleton pattern
 public class Pr5_Singleton_DoubleChecking {
 
     public static void main(String[] args) {
 
+        // Creating and starting Thread t1
         Thread t1 = new Thread(new Runnable() {
             public void run() {
                 System.out.println("\nSetting Instance 1: ");
@@ -55,9 +62,9 @@ public class Pr5_Singleton_DoubleChecking {
             }
         });
 
+        // Creating and starting Thread t2
         Thread t2 = new Thread(new Runnable() {
             public void run() {
-
                 System.out.println("\nSetting Instance 2: ");
                 Car.setInstance();
                 Car carObject2 = Car.getInstance();
@@ -66,8 +73,7 @@ public class Pr5_Singleton_DoubleChecking {
             }
         });
 
-        t1.start();
-        t2.start();
+        t1.start(); // Start Thread t1
+        t2.start(); // Start Thread t2
     }
-
 }
