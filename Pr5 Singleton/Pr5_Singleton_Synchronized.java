@@ -1,11 +1,10 @@
-import java.util.Scanner;
 
 class Car {
     private String model, color, brand;
     private int year;
 
     // Early, instance will be created at load time
-    private static Car carObject = new Car();
+    private static Car carObject = null;
 
     private Car() {
         this.brand = "Porsche";
@@ -19,16 +18,14 @@ class Car {
         return carObject;
     }
 
-    public static void setInstance() {
+    public static synchronized void setInstance() {
         if (carObject == null) {
             carObject = new Car();
             System.out.println("Car Instance successfully set");
         } else
             System.out.println("Car Instance Already Exists!! You can access it using 'getInstance()' method.\n");
-
     }
 
-    
     public void printDetails() {
         System.out.println("Car{" +
                 "brand='" + brand + '\'' +
@@ -40,28 +37,33 @@ class Car {
 
 }
 
-public class Pr5_Singleton_Eager extends Car {
+public class Pr5_Singleton_Synchronized {
 
     public static void main(String[] args) {
 
-        System.out.println("\nSetting Instance 1: ");
-        setInstance();
+        Thread t1 = new Thread(new Runnable() {
+            public void run() {
+                System.out.println("\nSetting Instance 1: ");
+                Car.setInstance();
+                Car carObject1 = Car.getInstance();
+                System.out.println("Details of Car Object 1");
+                carObject1.printDetails();
+            }
+        });
 
-        System.out.println("\nSetting Instance 2: ");
-        setInstance();
+        Thread t2 = new Thread(new Runnable() {
+            public void run() {
 
-        Car carObject1 = getInstance();
-        System.out.println("Details of Car Object 1");
-        carObject1.printDetails();
+                System.out.println("\nSetting Instance 2: ");
+                Car.setInstance();
+                Car carObject2 = Car.getInstance();
+                System.out.println("Details of Car Object 2");
+                carObject2.printDetails();
+            }
+        });
 
-        Car carObject2 = getInstance();
-        System.out.println("Details of Car Object 2");
-        carObject2.printDetails();
-
-        if (carObject1 == carObject2) {
-            System.out.println("Both objects are the same instance.");
-        }
-
+        t1.start();
+        t2.start();
     }
 
 }
