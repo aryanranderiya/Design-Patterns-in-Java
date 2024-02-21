@@ -1,13 +1,13 @@
 import java.util.*;
 
 // Abstract product interface
-interface Car {
+interface CarBrand {
     // Create an interface implemented by classes to print all brand details.
     public void carBrandDetails();
 }
 
 // Concrete product implementations
-class Porsche implements Car {
+class Porsche implements CarBrand {
     // Sub class that implements "Car" interface and "carBrandDetails" method
     public void carBrandDetails() {
         // Print Details of the Car Brand.
@@ -17,7 +17,7 @@ class Porsche implements Car {
     }
 }
 
-class Bugatti implements Car {
+class Bugatti implements CarBrand {
     // Sub class that implements "Car" interface and "carBrandDetails" method
     public void carBrandDetails() {
         // Print Details of the Car Brand.
@@ -27,7 +27,7 @@ class Bugatti implements Car {
     }
 }
 
-class Lamborghini implements Car {
+class Lamborghini implements CarBrand {
     // Sub class that implements "Car" interface and "carBrandDetails" method
     public void carBrandDetails() {
         // Print Details of the Car Brand.
@@ -37,35 +37,76 @@ class Lamborghini implements Car {
     }
 }
 
-interface AbstractFactory {
-    Car createCar();
+interface CarEngineType {
+    public void carEngineTypeDetails();
 }
 
+class Diesel implements CarEngineType {
+    public void carEngineTypeDetails() {
+        System.out.println("Diesel Based Engine Type");
+    }
+}
+
+class Petrol implements CarEngineType {
+    public void carEngineTypeDetails() {
+        System.out.println("Petrol Based Engine Type");
+    }
+}
+
+class Electric implements CarEngineType {
+    public void carEngineTypeDetails() {
+        System.out.println("Electric Based Engine Type");
+    }
+}
+
+// Abstract Factory interface
+interface AbstractFactory {
+    CarBrand createBrand(); // Create method for creating car brand
+
+    CarEngineType createEngine(); // Create method for creating car engine type
+}
+
+// Concrete Factory for Porsche
 class PorscheFactory implements AbstractFactory {
 
     @Override
-    public Car createCar() {
-        return new Porsche();
+    public CarBrand createBrand() {
+        return new Porsche(); // Create Porsche brand
+    }
+
+    @Override
+    public CarEngineType createEngine() {
+        return new Diesel(); // Create Diesel engine type
     }
 
 }
 
+// Concrete Factory for Bugatti
 class BugattiFactory implements AbstractFactory {
 
     @Override
-    public Car createCar() {
-        return new Bugatti();
+    public CarBrand createBrand() {
+        return new Bugatti(); // Create Bugatti brand
     }
 
+    @Override
+    public CarEngineType createEngine() {
+        return new Diesel(); // Create Diesel engine type
+    }
 }
 
+// Concrete Factory for Lamborghini
 class LamborghiniFactory implements AbstractFactory {
 
     @Override
-    public Car createCar() {
-        return new Lamborghini();
+    public CarBrand createBrand() {
+        return new Lamborghini(); // Create Lamborghini brand
     }
 
+    @Override
+    public CarEngineType createEngine() {
+        return new Diesel(); // Create Diesel engine type
+    }
 }
 
 // Main Driver Class
@@ -103,8 +144,10 @@ public class Pr4_Abstract_Factory {
         }
 
         // use the reference to call the create car method of the factory
-        Car car = carAbstractFactory.createCar();
-        car.carBrandDetails(); // Print the car brand details of the car.
+        CarBrand Brand = carAbstractFactory.createBrand();
+        CarEngineType Engine = carAbstractFactory.createEngine();
+        Brand.carBrandDetails(); // Print the car brand details of the car.
+        Engine.carEngineTypeDetails(); // Print the car brand details of the car.
 
         // Close the Scanner input stream to prevent data leaks.
         sc.close();
